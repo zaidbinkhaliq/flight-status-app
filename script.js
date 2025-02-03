@@ -5,7 +5,7 @@ const flightStatusDiv = document.getElementById('flight-status');
 
 // AviationStack API endpoint and API key
 const apiEndpoint = ' https://api.aviationstack.com/v1/flights';
-const apiKey = '46d17257595611d2fbad0e47118bd75f'; // Replace with your actual API key
+const apiKey = 'Your Key'; // Replace with your actual API key
 
 flightForm.addEventListener('submit', (e) => {
     e.preventDefault();
