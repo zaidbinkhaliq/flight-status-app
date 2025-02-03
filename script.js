@@ -3,9 +3,9 @@ const flightNumberInput = document.getElementById('flight-number');
 const submitBtn = document.getElementById('submit-btn');
 const flightStatusDiv = document.getElementById('flight-status');
 
-// Aviation Edge API endpoint and API key
-const apiEndpoint = 'https://aviation-edge.com/v2/public/flights';
-const apiKey = 'YOUR_API_KEY_HERE'; // Replace with your actual API key
+// AviationStack API endpoint and API key
+const apiEndpoint = ' https://api.aviationstack.com/v1/flights';
+const apiKey = '46d17257595611d2fbad0e47118bd75f'; // Replace with your actual API key
 
 flightForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -13,19 +13,19 @@ flightForm.addEventListener('submit', (e) => {
     const flightNumber = flightNumberInput.value.trim();
 
     if (flightNumber) {
-        fetch(`${apiEndpoint}?flightNumber=${flightNumber}&key=${apiKey}`)
+        fetch(`${apiEndpoint}?flight_iata=${flightNumber}&access_key=${apiKey}`)
             .then((response) => response.json())
             .then((data) => {
-                const flightStatus = data[0];
+                if (data.data && data.data.length > 0) {
+                    const flightStatus = data.data[0];
 
-                if (flightStatus) {
                     const statusHtml = `
                         <h2>Flight Status:</h2>
-                        <p>Airline: ${flightStatus.airline}</p>
-                        <p>Flight Number: ${flightStatus.flightNumber}</p>
-                        <p>Departure Airport: ${flightStatus.departureAirport}</p>
-                        <p>Arrival Airport: ${flightStatus.arrivalAirport}</p>
-                        <p>Status: ${flightStatus.status}</p>
+                        <p>Airline: ${flightStatus.airline.name}</p>
+                        <p>Flight Number: ${flightStatus.flight.iata}</p>
+                        <p>Departure Airport: ${flightStatus.departure.airport}</p>
+                        <p>Arrival Airport: ${flightStatus.arrival.airport}</p>
+                        <p>Status: ${flightStatus.flight_status}</p>
                     `;
 
                     flightStatusDiv.innerHTML = statusHtml;
